@@ -30,8 +30,7 @@ public class Client implements Runnable {
 
 
         int portNumber = 10334; //port
-        String host = "localhost";
-
+        String host = "10.10.3.242";
         System.out.println("Now using host = " + host + ", portNumber = " + portNumber);
 
         Scanner input=new Scanner (System.in);

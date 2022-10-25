@@ -9,7 +9,6 @@
     <list default="true" id="f73cf6fe-c457-44cb-bfc3-7c96db85e04a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/smallplayz/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/smallplayz/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/smallplayz/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/smallplayz/Server.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,7 +45,7 @@
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;
   }
 }</component>
-  <component name="RunManager" selected="Application.client">
+  <component name="RunManager" selected="Application.server">
     <configuration name="client" type="Application" factoryName="Application" singleton="false">
       <option name="MAIN_CLASS_NAME" value="com.smallplayz.Client" />
       <module name="untitled" />
