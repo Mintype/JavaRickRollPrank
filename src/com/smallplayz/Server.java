@@ -1,8 +1,6 @@
 package com.smallplayz;
 
-import java.io.DataInputStream;
-import java.io.PrintStream;
-import java.io.IOException;
+import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.ServerSocket;
@@ -12,8 +10,10 @@ public class Server {
 
     private static ServerSocket serverSocket = null;
     private static Socket clientSocket = null;
-    private static final int maxClientsCount = 10;
+    private static final int maxClientsCount = 50;
     private static int portNumber = 10334;
+
+    static int ClientsConnected = 0;
 
     private static final clientThread[] threads = new clientThread[maxClientsCount];
 
@@ -23,6 +23,7 @@ public class Server {
             serverSocket = new ServerSocket(portNumber);
             int i = 0;
             while (true) {
+
                 clientSocket = serverSocket.accept();
                 for (i = 0; i < maxClientsCount; i++) {
                     if (threads[i] == null) {
@@ -36,6 +37,9 @@ public class Server {
                     os.close();
                     clientSocket.close();
                 }
+                PrintStream os = new PrintStream(clientSocket.getOutputStream());
+                BufferedReader inputLine = new BufferedReader(new InputStreamReader(System.in));
+                os.println(inputLine.readLine().trim());
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -69,32 +73,34 @@ class clientThread extends Thread {
     public void run(){
         int maxClientsCount = this.maxClientsCount;
         clientThread[] threads = this.threads;
-
+        Server.ClientsConnected++;
+        System.out.println(Server.ClientsConnected + " Clients have connected.");
         try {
             is = new DataInputStream(clientSocket.getInputStream());
             os = new PrintStream(clientSocket.getOutputStream());
-            String name = is.readLine().trim();
-            os.println("hi");
             for (int i = 0; i < maxClientsCount; i++) {
                 if (threads[i] != null && threads[i] != this) {
-                    threads[i].os.println( name + " has connected to the server!");
+                    //threads[i].os.println( name + " has connected to the server!");
+
                 }
             }
             while (true) {
                 String line = is.readLine();
                 System.out.println(line);
                 if (line.startsWith("/exit")) {
+                    System.out.println("Warning, a Client has left using cli");
                     break;
                 }
                 for (int i = 0; i < maxClientsCount; i++) {
                     if (threads[i] != null) {
-                        threads[i].os.println("[" + name + "] : " + line);
+                        threads[i].os.println(line);
                     }
                 }
             }
             for (int i = 0; i < maxClientsCount; i++) {
                 if (threads[i] != null && threads[i] != this) {
-                    threads[i].os.println( name + " is disconnecting from the server.");
+                    //threads[i].os.println( name + " is disconnecting from the server.");
+                    System.out.println("Warning, a Client has disconnected");
                 }
             }
             for (int i = 0; i < maxClientsCount; i++) {
